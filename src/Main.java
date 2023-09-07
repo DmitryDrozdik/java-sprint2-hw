@@ -36,7 +36,7 @@ class Main {
                         ArrayList<String> monthLines = fileReader.readFileContents(fileName);
                         monthLines.remove(0);
 
-                        String month = fileName.substring(6, 7);
+                        String month = fileName.substring(6, 8);
 
                         MonthlyReport monthlyReport = new MonthlyReport(month);
                         monthlyReport.readFromFile(monthLines);
@@ -52,7 +52,7 @@ class Main {
                         ArrayList<String> yearLines = fileReader.readFileContents(fileName);
                         yearLines.remove(0);
 
-                        String year = fileName.substring(2, 5);
+                        String year = fileName.substring(2, 6);
 
                         YearlyReport yearlyReport = new YearlyReport(year);
                         yearlyReport.readFromFile(yearLines);
@@ -114,6 +114,12 @@ class Main {
                 break;
 
                 case 4:
+                    if (monthlyReports.isEmpty())
+                    {
+                        System.out.println("Сначала нужно считать месячные отчеты!");
+                        break;
+                    }
+
                     for (MonthlyReport report : monthlyReports.values())
                     {
                         if (report != null)
@@ -128,6 +134,12 @@ class Main {
                     break;
 
                 case 5:
+                    if (yearlyReports.isEmpty())
+                    {
+                        System.out.println("Сначала нужно считать годовые отчеты!");
+                        break;
+                    }
+
                     for (YearlyReport report : yearlyReports.values())
                     {
                         if (report != null)
