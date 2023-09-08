@@ -24,12 +24,19 @@ class Main {
         while (true) {
             printMenu();
 
-            int choice = scanner.nextInt();
-            if (choice == 0)
+            int input_choice = scanner.nextInt();
+            if (input_choice == 0)
                 break;
 
+            if (input_choice > 5 || input_choice < 0) {
+                System.out.println("Неверная опция. Повторите.");
+                continue;
+            }
+
+            Choice choice = Choice.values()[--input_choice];
+
             switch (choice) {
-                case 1:
+                case MONTHLY_READ:
                     fileNames = "m.202101.csv,m.202102.csv,m.202103.csv";
                     for (String fileName : fileNames.split(","))
                     {
@@ -45,7 +52,7 @@ class Main {
                     }
                     break;
 
-                case 2:
+                case YEARLY_READ:
                     fileNames = "y.2021.csv";
                     for (String fileName : fileNames.split(","))
                     {
@@ -61,7 +68,7 @@ class Main {
                     }
                     break;
 
-                case 3:
+                case VERIFY:
 //                  1.  is reports
                     if (monthlyReports.isEmpty() || yearlyReports.isEmpty())
                     {
@@ -75,19 +82,9 @@ class Main {
 
                     for (String month : monthlyReports.keySet()) {
                         MonthlyReport report = monthlyReports.get(month);
-                        double income = 0.0, expense = 0.0;
 
-                        for (Transaction t : report.transactions) {
-                            if (t.isExpense) {
-                                expense += t.getTotal();
-                            }
-                            else {
-                                income += t.getTotal();
-                            }
-                        }
-
-                        monthlyIncomes.put(month, income);
-                        monthlyExpenses.put(month, expense);
+                        monthlyIncomes.put(month, report.getTotalIncome());
+                        monthlyExpenses.put(month, report.getTotalExpense());
                     }
 
 //                  3. equals
@@ -113,7 +110,7 @@ class Main {
                         System.out.println("Сверка успешно завершена!");
                 break;
 
-                case 4:
+                case MONTHLY_PRINT:
                     if (monthlyReports.isEmpty())
                     {
                         System.out.println("Сначала нужно считать месячные отчеты!");
@@ -133,7 +130,7 @@ class Main {
                     }
                     break;
 
-                case 5:
+                case YERLY_PRINT:
                     if (yearlyReports.isEmpty())
                     {
                         System.out.println("Сначала нужно считать годовые отчеты!");
@@ -152,9 +149,6 @@ class Main {
                         }
                     }
                     break;
-
-                default:
-                    System.out.println("Неверная опция. Повторите.");
             }
         }
     }

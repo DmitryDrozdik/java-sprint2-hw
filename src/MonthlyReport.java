@@ -1,8 +1,9 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MonthlyReport {
     String month;
-    ArrayList<Transaction> transactions = new ArrayList<>();
+    final ArrayList<Transaction> transactions = new ArrayList<>();
     boolean isRead = false;
 
     public boolean isRead() {
@@ -80,5 +81,25 @@ public class MonthlyReport {
         {
             System.out.println("Данные о расходах отсутствуют");
         }
+    }
+
+    public Double getTotalIncome() {
+        double income = 0.0;
+
+        for (Transaction t : transactions)
+            if (!t.isExpense)
+                income += t.getTotal();
+
+        return income;
+    }
+
+    public Double getTotalExpense() {
+        double expense = 0.0;
+
+        for (Transaction t : transactions)
+            if (t.isExpense)
+                expense += t.getTotal();
+
+        return expense;
     }
 }

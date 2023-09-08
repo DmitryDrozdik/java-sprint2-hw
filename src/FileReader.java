@@ -5,8 +5,9 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 
 public class FileReader {
+    static final String ROOT = "./resources/";
     ArrayList<String> readFileContents(String fileName) {
-        String path = "./resources/" + fileName;
+        String path = ROOT + fileName;
         try {
             return new ArrayList<>(Files.readAllLines(Path.of(path)));
         } catch (IOException e) {

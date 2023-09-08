@@ -3,8 +3,8 @@ import java.util.HashMap;
 
 public class YearlyReport {
     String year;
-    HashMap<String, Double> incomes = new HashMap<>();
-    HashMap<String, Double> expenses = new HashMap<>();
+    final HashMap<String, Double> incomes = new HashMap<>();
+    final HashMap<String, Double> expenses = new HashMap<>();
     boolean isRead = false;
 
     public YearlyReport(String year) {
